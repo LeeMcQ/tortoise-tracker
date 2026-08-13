@@ -3,44 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#123f49" />
-  <meta name="description" content="Nautilus Bay Tortoise Tracker – identify, photograph and record tortoise sightings across the reserve." />
+  <meta name="theme-color" content="#0c4248" />
+  <meta name="color-scheme" content="light" />
+  <meta name="description" content="Nautilus Bay Tortoise Tracker — community science and conservation monitoring for Nautilus Bay Nature Reserve." />
+  <meta name="robots" content="index,follow" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: blob: https://*.tile.openstreetmap.org https://tile.openstreetmap.org; connect-src 'self' https://*.supabase.co https://tile.openstreetmap.org https://challenges.cloudflare.com; media-src 'self' blob:; font-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://challenges.cloudflare.com; frame-ancestors 'none'; upgrade-insecure-requests" />
   <link rel="manifest" href="./manifest.webmanifest" />
   <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="./icons/icon-192.png" />
-  <link rel="preconnect" href="https://unpkg.com" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <link rel="stylesheet" href="./styles.css" />
   <title>Nautilus Bay Tortoise Tracker</title>
 </head>
 <body>
-  <div id="app"></div>
-
-  <template id="shell-template">
-    <header class="topbar">
-      <a href="#/" class="brand" aria-label="Nautilus Bay Tortoise Tracker home">
-        <span class="brand-mark" aria-hidden="true">🐢</span>
-        <span><strong>Nautilus Bay</strong><small>Tortoise Tracker</small></span>
-      </a>
-      <div class="top-actions">
-        <button id="language-btn" class="icon-btn" type="button" aria-label="Change language">AF</button>
-        <button id="menu-btn" class="icon-btn" type="button" aria-label="Open menu">☰</button>
-      </div>
-    </header>
-    <nav id="drawer" class="drawer" aria-label="Main navigation">
-      <a href="#/">Home</a>
-      <a href="#/identify">Identify tortoise</a>
-      <a href="#/map">Explore map</a>
-      <a href="#/about">About</a>
-      <a href="#/login">Staff login</a>
-    </nav>
-    <main id="view" tabindex="-1"></main>
-    <footer class="footer">Nautilus Bay Nature Reserve · Conservation through community sightings</footer>
-    <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  </template>
-
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="app" aria-live="polite"></div>
+  <noscript>This application requires JavaScript to record sightings. Contact the reserve office if you need assistance.</noscript>
   <script src="./config.js"></script>
-  <script src="./app.js" type="module"></script>
+  <script type="module" src="./src/app.js"></script>
 </body>
 </html>

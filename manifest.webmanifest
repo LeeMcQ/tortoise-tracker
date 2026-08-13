@@ -1,15 +1,17 @@
 {
   "name": "Nautilus Bay Tortoise Tracker",
   "short_name": "Tortoise Tracker",
+  "description": "Identify and record tortoise sightings at Nautilus Bay Nature Reserve.",
+  "id": "./",
   "start_url": "./#/",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f6f0e3",
-  "theme_color": "#123f49",
-  "description": "Community-assisted tortoise identification, sighting and conservation tracking for Nautilus Bay Nature Reserve.",
+  "background_color": "#f6f2e8",
+  "theme_color": "#0c4248",
+  "lang": "en-ZA",
+  "categories": ["education", "utilities"],
   "icons": [
-    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
-    { "src": "./icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+    {"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"./icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
   ]
 }

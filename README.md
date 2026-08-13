@@ -1,85 +1,77 @@
-# Nautilus Bay Tortoise Tracker
+# Nautilus Bay Digital Conservation Platform — V2
 
-Version-1 PWA prototype for identifying and recording tortoises in Nautilus Bay Nature Reserve.
+Production-oriented upgrade of the Nautilus Bay Tortoise Tracker. The public experience remains a fast mobile PWA, while the protected backend is designed for research provenance, health-case management, spatial security, offline field capture and future telemetry.
 
-## What is implemented
+## Run the working demo
 
-- Mobile-first PWA shell and install manifest
-- English / Afrikaans language switch
-- Public tortoise profiles with demo records
-- Manual tortoise ID lookup
-- Native browser QR scanning using `BarcodeDetector` where supported
-- GPS location and accuracy capture
-- Camera/gallery photo capture and client-side compression
-- Visitor photo requirement
-- Behaviour and condition classification
-- Untagged tortoise reporting
-- Persistent observation history (demo mode)
-- Public map with latest location generalisation
-- Clear warning that map lines are inferred connections, not actual travelled paths
-- IndexedDB offline queue + reconnect synchronisation
-- Idempotent `client_submission_id` architecture
-- Staff demo login, dashboard, registry, sightings and QR page
-- Supabase/PostgreSQL/PostGIS production schema
-- Row Level Security design that blocks public access to raw observations
-- Public-safe RPCs for profiles/history
-- Supabase Edge Function skeleton for anonymous submissions
-- Future `devices -> telemetry` schema
-
-## Run locally
-
-A secure HTTP origin is needed for camera, service workers and reliable geolocation. `localhost` is considered secure by modern browsers.
+No package installation is required.
 
 ```bash
-cd nautilus-tortoise-tracker
 python3 -m http.server 8080
 ```
 
-Then open:
+Open `http://localhost:8080/#/`.
 
-`http://localhost:8080`
+Demo staff roles are available under **Staff**. All demo animal records are synthetic.
 
-For testing from a phone on the same Wi-Fi network, camera/geolocation generally require HTTPS rather than a plain LAN HTTP address. Deploy the folder to Cloudflare Pages/GitHub Pages or use a trusted HTTPS development tunnel.
+## Quality checks
 
-## Demo data
+```bash
+npm run qa
+```
 
-The prototype starts with T0047 (Shelly), T0128 (Atlas) and T0387 (Sandy). These are clearly synthetic demonstration records and should be deleted/replaced before operational use.
+The codebase has no runtime npm dependencies; map code is lazy-loaded only when a map is requested. Production Supabase Edge Functions use server-side dependencies in Deno.
 
-Use **Staff login** and select a demonstration role. This is UI-only demo authentication; production staff authentication must use Supabase Auth.
+## What V2 implements
 
-## Production deployment
+- Five-step public sighting flow with a GPS permission explanation before requesting location.
+- QR/manual/untagged identification provenance.
+- GPS accuracy capture and configurable rejection threshold.
+- 1–3 client-compressed photographs with privacy/safe-observation guidance.
+- Observation quality scoring.
+- Full English/Afrikaans UI string system.
+- Offline IndexedDB queue and duplicate-resistant client submission IDs.
+- Accessible sighting lists as an alternative to maps.
+- Public map locations are verified, delayed and spatially generalised.
+- Append-only raw observations with separate corrections and reviews.
+- Animal/taxon/identifier model.
+- Measurements with units, method, confidence and recorder provenance.
+- Health cases with severity, follow-up and event-ready clinical schema.
+- Device/tag deployments separated from animals and telemetry events.
+- CSV, GeoJSON and Movebank-style event exports.
+- Production Supabase/PostGIS schema with RLS.
+- Admin MFA/AAL2 enforcement in RLS and login challenge flow.
+- Private photo storage and controlled anonymous upload Edge Function.
+- Optional Cloudflare Turnstile verification plus server-side validation hook.
+- Potential injury/death observations auto-create health cases and can trigger email alerts.
+- Self-hosted QR SVG generation Edge Function.
+- Privacy-safe product event model that rejects coordinate/name/email/note fields.
+- Audit log, CI checks, security headers file and formal release gates.
 
-1. Create a Supabase project.
-2. Run `supabase/migrations/001_initial.sql`.
-3. Create a **private** Storage bucket named `sighting-photos`.
-4. Deploy `supabase/functions/public-sighting`.
-5. Add rate limiting / Cloudflare Turnstile before enabling anonymous public submission.
-6. Create staff users in Supabase Auth and matching rows in `public.profiles`.
-7. Update `config.js` with the Supabase URL and anon key and set `demoMode: false`.
-8. Wire the front-end data calls to `supabase-client.js` (public RPCs + Edge Function). The adapter is included.
-9. Deploy the static site to an HTTPS host, recommended subdomain: `tortoise.nautilusbayhoa.co.za`.
-10. Add the reserve boundary later to `reserve_config.boundary` when KML/KMZ/GeoJSON is available.
+## GitHub Pages deployment
 
-## Security notes
+The project is deliberately no-build so it can be copied directly into the existing `tortoise-tracker` repository. `config.js` currently points QR links at:
 
-- Do not expose a Supabase service-role key in browser code.
-- Raw `observations`, health records, and telemetry are protected by RLS.
-- Public map/profile reads should use only the security-definer public-safe functions.
-- The latest public position is rounded in SQL, not merely hidden by the user interface.
-- Public photo upload should go through a controlled server/Edge Function path; do not make the photo bucket broadly public-write/list/read.
-- Add bot/rate protection and server-side MIME/size validation before launch.
-- Review POPIA notices and retention periods before collecting visitor contact details. Version 1 intentionally does not require visitor accounts.
+`https://leemcq.github.io/tortoise-tracker`
 
-## Mapping note
+When the final subdomain is live, change `siteUrl` to `https://tortoise.nautilusbayhoa.co.za`.
 
-Leaflet is loaded from a CDN and the prototype uses the standard OpenStreetMap tile endpoint. This is suitable for development/light testing only. Select an appropriate production tile provider or self-hosted solution before significant public usage, and do not bulk-prefetch standard OSM tiles for offline use.
+## Production backend
 
-## Recommended next engineering increment
+1. Create separate **development**, **staging** and **production** Supabase projects.
+2. Run `supabase/migrations/001_world_class.sql` on a fresh project.
+3. Deploy Edge Functions:
+   - `public-sighting`
+   - `health-alert`
+   - `qr-svg`
+   - `product-event` (optional telemetry ingestion)
+4. Configure production secrets documented in `docs/DEPLOYMENT.md`.
+5. Create staff Auth users and `public.profiles` rows.
+6. Enrol MFA for every administrator before granting admin access.
+7. Set `config.js` Supabase URL/publishable key and `demoMode:false`.
+8. Import the reserve boundary and management layers into `reserve_zones`.
+9. Complete all release gates in `docs/RELEASE_GATES.md`.
 
-- Wire demo data provider to Supabase adapter
-- Add private photo upload path to Edge Function / signed URL flow
-- Implement staff Supabase Auth session handling
-- Add add/edit/archive tortoise forms
-- Add review/verification workflow and email notification for injured tortoise flags
-- Import actual reserve boundary
-- Add automated browser tests for QR/GPS permission fallbacks and offline queue recovery
+## Important governance boundary
+
+The software supports QR, visible IDs, PIT/RFID and future electronic devices, but it does **not** approve any physical marking or attachment method. Wildlife/veterinary approval is a mandatory release gate.

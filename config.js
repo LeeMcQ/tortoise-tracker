@@ -1,10 +1,27 @@
-// Copy this file to your deployment and set values after creating the Supabase project.
-// The anon key is designed to be public when Row Level Security is correctly configured.
-window.NBTT_CONFIG = {
-  supabaseUrl: '',
-  supabaseAnonKey: '',
-  siteUrl: 'https://tortoise.nautilusbayhoa.co.za',
+window.NAUTILUS_CONFIG = {
+  appName: 'Nautilus Bay Tortoise Tracker',
+  reserveName: 'Nautilus Bay Nature Reserve',
+  siteUrl: 'https://leemcq.github.io/tortoise-tracker',
+  productionSiteUrl: 'https://tortoise.nautilusbayhoa.co.za',
   demoMode: true,
-  latestPublicLocationPrecision: 2,
-  gpsWarningMetres: 50
+  supabaseUrl: '',
+  supabasePublishableKey: '',
+  turnstileSiteKey: '',
+  gpsWarningMetres: 50,
+  gpsRejectMetres: 250,
+  publicLatestGeneralisationMetres: 500,
+  publicHistoryGeneralisationMetres: 250,
+  publicLatestDelayHours: 24,
+  maxPhotos: 3,
+  maxPhotoBytes: 5242880,
+  compressedPhotoMaxDimension: 1800,
+  compressedPhotoQuality: 0.82,
+  offlineSyncBatchSize: 10,
+  publicAnalyticsEnabled: true,
+  map: {
+    centre: [-34.175, 22.03],
+    zoom: 13,
+    tileUrl: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+    attribution: '&copy; OpenStreetMap contributors'
+  }
 };

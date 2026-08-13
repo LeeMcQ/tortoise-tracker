@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {qualityScore,qualityBand} from '../src/quality.js';
+test('high quality GPS/photo/ID observation scores high',()=>{const s=qualityScore({accuracy_m:8,photos:[{}],identification_confidence:'certain',identification_method:'qr',observed_at:new Date().toISOString(),condition:'healthy'});assert.ok(s>=90);assert.equal(qualityBand(s),'high');});
+test('weak untagged uncertain observation is penalised',()=>{const s=qualityScore({accuracy_m:180,photos:[],identification_confidence:'uncertain',identification_method:'untagged',observed_at:new Date().toISOString(),condition:'unsure'});assert.ok(s<50);assert.equal(qualityBand(s),'low');});

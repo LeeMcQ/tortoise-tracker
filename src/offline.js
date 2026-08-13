@@ -1,0 +1,7 @@
+const DB_NAME='nautilus-offline-v2', STORE='pendingSightings';
+function openDB(){ return new Promise((resolve,reject)=>{ const r=indexedDB.open(DB_NAME,1); r.onupgradeneeded=()=>{ if(!r.result.objectStoreNames.contains(STORE)) r.result.createObjectStore(STORE,{keyPath:'client_submission_id'}); }; r.onsuccess=()=>resolve(r.result); r.onerror=()=>reject(r.error); }); }
+export async function queueSighting(row){ const db=await openDB(); return new Promise((resolve,reject)=>{ const tx=db.transaction(STORE,'readwrite'); tx.objectStore(STORE).put(row); tx.oncomplete=()=>resolve(row); tx.onerror=()=>reject(tx.error); }); }
+export async function pendingSightings(){ const db=await openDB(); return new Promise((resolve,reject)=>{ const r=db.transaction(STORE).objectStore(STORE).getAll(); r.onsuccess=()=>resolve(r.result||[]); r.onerror=()=>reject(r.error); }); }
+export async function removePending(id){ const db=await openDB(); return new Promise((resolve,reject)=>{ const tx=db.transaction(STORE,'readwrite'); tx.objectStore(STORE).delete(id); tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error); }); }
+export async function countPending(){ return (await pendingSightings()).length; }
+export async function syncPending(submit){ const rows=await pendingSightings(); const result={sent:0,failed:0}; for(const row of rows.slice(0,window.NAUTILUS_CONFIG.offlineSyncBatchSize||10)){ try{ await submit(row); await removePending(row.client_submission_id); result.sent++; }catch{ result.failed++; } } return result; }
