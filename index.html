@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#123f49" />
+  <meta name="description" content="Nautilus Bay Tortoise Tracker – identify, photograph and record tortoise sightings across the reserve." />
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+  <link rel="preconnect" href="https://unpkg.com" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <link rel="stylesheet" href="./styles.css" />
+  <title>Nautilus Bay Tortoise Tracker</title>
+</head>
+<body>
+  <div id="app"></div>
+
+  <template id="shell-template">
+    <header class="topbar">
+      <a href="#/" class="brand" aria-label="Nautilus Bay Tortoise Tracker home">
+        <span class="brand-mark" aria-hidden="true">🐢</span>
+        <span><strong>Nautilus Bay</strong><small>Tortoise Tracker</small></span>
+      </a>
+      <div class="top-actions">
+        <button id="language-btn" class="icon-btn" type="button" aria-label="Change language">AF</button>
+        <button id="menu-btn" class="icon-btn" type="button" aria-label="Open menu">☰</button>
+      </div>
+    </header>
+    <nav id="drawer" class="drawer" aria-label="Main navigation">
+      <a href="#/">Home</a>
+      <a href="#/identify">Identify tortoise</a>
+      <a href="#/map">Explore map</a>
+      <a href="#/about">About</a>
+      <a href="#/login">Staff login</a>
+    </nav>
+    <main id="view" tabindex="-1"></main>
+    <footer class="footer">Nautilus Bay Nature Reserve · Conservation through community sightings</footer>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </template>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="./config.js"></script>
+  <script src="./app.js" type="module"></script>
+</body>
+</html>

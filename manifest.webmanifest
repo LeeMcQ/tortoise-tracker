@@ -1,0 +1,15 @@
+{
+  "name": "Nautilus Bay Tortoise Tracker",
+  "short_name": "Tortoise Tracker",
+  "start_url": "./#/",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f0e3",
+  "theme_color": "#123f49",
+  "description": "Community-assisted tortoise identification, sighting and conservation tracking for Nautilus Bay Nature Reserve.",
+  "icons": [
+    { "src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
+    { "src": "./icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
