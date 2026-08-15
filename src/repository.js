@@ -8,7 +8,7 @@ const cfg=window.NAUTILUS_CONFIG;
 export function isDemo(){ return cfg.demoMode || !api.configured(); }
 export function authApi(){ return api; }
 
-function demoPublicAnimal(a){ if(!a) return null; const tax=DemoDB.taxon(a.taxon_id); const obs=DemoDB.observationsForAnimal(a.id).filter(isPubliclyReleased); const last=obs[obs.length-1]||null; return {...a,scientific_name:tax?.scientific_name,common_name_en:tax?.common_name_en,common_name_af:tax?.common_name_af,last_observed_at:last?.observed_at||null}; }
+function demoPublicAnimal(a){ if(!a) return null; const tax=DemoDB.taxon(a.taxon_id); const obs=DemoDB.observationsForAnimal(a.id).filter(isPubliclyReleased); const last=obs[obs.length-1]||null; return {...a,scientific_name:tax?.scientific_name,common_name_en:tax?.common_name_en,common_name_af:tax?.common_name_af,conservation_status:tax?.conservation_status,last_observed_at:last?.observed_at||null}; }
 export const Repo={
   async publicAnimals(){ return isDemo()?DemoDB.activeAnimals().map(demoPublicAnimal):api.publicAnimals(); },
   async publicAnimal(publicId){ return isDemo()?demoPublicAnimal(DemoDB.animalByPublicId(publicId)):api.publicAnimal(publicId); },

@@ -1,6 +1,6 @@
 import { DEMO } from './demo-data.js';
 
-const KEY = 'nautilus-conservation-v2';
+const KEY = 'nautilus-conservation-v4';
 const deepClone = v => typeof structuredClone==='function' ? structuredClone(v) : JSON.parse(JSON.stringify(v));
 
 function initial(){ return deepClone(DEMO); }
