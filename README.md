@@ -1,4 +1,8 @@
-# Nautilus Bay Digital Conservation Platform — V2
+# Nautilus Bay Digital Conservation Platform V5 — Adaptive App/Web Release
+
+V5 preserves the full V4 conservation/GIS/scientific capability while adding an adaptive presentation layer: app-like on phones/tablets and installed PWA sessions, conventional professional website behaviour on desktop, plus a platform capability adapter and packaging strategy for future Android APK conversion.
+
+See `docs/ADAPTIVE_EXPERT_REVIEW.md` and `docs/MOBILE_NATIVE_STRATEGY.md`.
 
 Production-oriented upgrade of the Nautilus Bay Tortoise Tracker. The public experience remains a fast mobile PWA, while the protected backend is designed for research provenance, health-case management, spatial security, offline field capture and future telemetry.
 
@@ -22,7 +26,7 @@ npm run qa
 
 The codebase has no runtime npm dependencies; map code is lazy-loaded only when a map is requested. Production Supabase Edge Functions use server-side dependencies in Deno.
 
-## What V2 implements
+## What V4 implements
 
 - Five-step public sighting flow with a GPS permission explanation before requesting location.
 - QR/manual/untagged identification provenance.
@@ -38,7 +42,11 @@ The codebase has no runtime npm dependencies; map code is lazy-loaded only when 
 - Measurements with units, method, confidence and recorder provenance.
 - Health cases with severity, follow-up and event-ready clinical schema.
 - Device/tag deployments separated from animals and telemetry events.
-- CSV, GeoJSON and Movebank-style event exports.
+- CSV, GeoJSON, OGC KML and Movebank-style event exports.
+- Public thematic mapping for species, recency, density and observation points.
+- Staff Spatial Analysis Lab for condition, quality, verification, recency and density mapping.
+- GPS uncertainty circles, metric scale, straight-line measurement and filtered map exports.
+- Public and staff Insights dashboards with accessible SVG charts and underlying data tables.
 - Production Supabase/PostGIS schema with RLS.
 - Admin MFA/AAL2 enforcement in RLS and login challenge flow.
 - Private photo storage and controlled anonymous upload Edge Function.
@@ -63,6 +71,7 @@ When the final subdomain is live, change `siteUrl` to `https://tortoise.nautilus
 3. Deploy Edge Functions:
    - `public-sighting`
    - `health-alert`
+   - `public-profile-photo`
    - `qr-svg`
    - `product-event` (optional telemetry ingestion)
 4. Configure production secrets documented in `docs/DEPLOYMENT.md`.
@@ -75,3 +84,26 @@ When the final subdomain is live, change `siteUrl` to `https://tortoise.nautilus
 ## Important governance boundary
 
 The software supports QR, visible IDs, PIT/RFID and future electronic devices, but it does **not** approve any physical marking or attachment method. Wildlife/veterinary approval is a mandatory release gate.
+
+## V4 Spatial Analytics and Insights
+
+V4 adds two analytical surfaces:
+
+- **Public Conservation Map / Insights:** conservation-safe thematic views generated from delayed/generalised public positions and aggregate observations.
+- **Staff Map Lab / Insights:** exact authorised positions with advanced themes, temporal filters, GPS uncertainty, spatial measurement and research exports.
+
+### Thematic map modes
+
+Public: species, recency, density and observation points.  
+Staff: species, condition, data quality, verification, recency, density and observation points.
+
+### Research exports
+
+- CSV animal registry
+- CSV observations
+- GeoJSON observations
+- OGC KML observations
+- KML with explicitly labelled inferred observation connections
+- Movebank-style event CSV
+
+KML point exports do not claim a route travelled. Any connection-line KML is explicitly labelled as an analytical connection between recorded observation positions.

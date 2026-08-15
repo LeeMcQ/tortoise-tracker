@@ -1,0 +1,8 @@
+{
+  "appId": "za.co.nautilusbay.tortoisetracker",
+  "appName": "Nautilus Bay Tortoise Tracker",
+  "webDir": "dist-native",
+  "server": {
+    "androidScheme": "https"
+  }
+}

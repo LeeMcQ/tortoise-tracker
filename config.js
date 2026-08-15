@@ -12,6 +12,7 @@ window.NAUTILUS_CONFIG = {
   publicLatestGeneralisationMetres: 500,
   publicHistoryGeneralisationMetres: 250,
   publicLatestDelayHours: 24,
+  publicConnectHistory: false,
   maxPhotos: 3,
   maxPhotoBytes: 5242880,
   compressedPhotoMaxDimension: 1800,
