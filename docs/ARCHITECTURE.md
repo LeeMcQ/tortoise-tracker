@@ -4,6 +4,8 @@
 
 `Browser PWA → controlled public RPC / public-sighting Edge Function → PostgreSQL/PostGIS + private Storage`
 
+Approved animal profile images remain in the private Storage bucket and are exposed only through the `public-profile-photo` Edge Function after checking that the image is the active animal's designated profile photograph.
+
 The public client never queries the raw observation table. Public spatial RPCs return only observations that are verified, outside the configured recent-location delay and spatially generalised by the database.
 
 ## Scientific domain

@@ -6,6 +6,15 @@
 - Prefer the final `tortoise.nautilusbayhoa.co.za` domain once DNS/TLS are ready.
 - `_headers` is provided for hosts such as Cloudflare Pages. GitHub Pages does not apply this file as HTTP headers, so use the final production host/proxy to enforce headers.
 
+
+## Edge Functions
+Deploy these functions in every environment that uses the production backend:
+- `public-sighting` — controlled anonymous sighting/photo ingestion.
+- `public-profile-photo` — serves only the animal photograph explicitly selected as the public profile image from the private bucket.
+- `health-alert` — health escalation notifications.
+- `qr-svg` — authenticated QR generation.
+- `product-event` — optional privacy-safe product telemetry.
+
 ## Supabase secrets
 Set server-side only:
 - `SUPABASE_URL`
