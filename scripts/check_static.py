@@ -15,3 +15,29 @@ for ref in re.findall(r"'\./([^']+)'",sw):
 if errors:
     print('\n'.join(errors));sys.exit(1)
 print('Static asset integrity: OK')
+
+# V3 regression guards
+sw = (root / 'service-worker.js').read_text(encoding='utf-8')
+assert "CACHE_PREFIX = 'nautilus-tortoise-tracker-'" in sw, 'Service-worker cache prefix missing'
+assert "k.startsWith(CACHE_PREFIX)" in sw, 'Service worker must not delete unrelated origin caches'
+app = (root / 'src/app.js').read_text(encoding='utf-8')
+assert app.count('data-nav="/directory"') == 2, 'Directory navigation should appear once in desktop and once in mobile nav'
+print('V3 regression guards: OK')
+
+# V4 spatial analytics regression guards
+assert "./src/analysis.js" in sw and "./src/charts.js" in sw, 'V4 analysis modules must be cached for offline app shell'
+assert 'data-nav="/insights"' in app, 'Public Insights navigation missing'
+assert "section==='spatial'" in app, 'Staff Map Lab route missing'
+exp=(root/'src/export.js').read_text(encoding='utf-8')
+assert 'observationsKML' in exp and 'application/vnd.google-earth.kml+xml' in app, 'KML export integration missing'
+print('V4 spatial analytics guards: OK')
+
+# V5 adaptive app/native-readiness guards
+assert "./src/platform.js" in sw, 'Platform adapter must be cached for offline app shell'
+assert 'app-tabbar' in app and 'app-more-button' in app, 'Adaptive mobile app navigation missing'
+assert 'getCurrentPosition' in app and 'getCameraStream' in app, 'Device capabilities must route through platform adapter'
+assert (root/'capacitor.config.json').exists(), 'Capacitor configuration missing'
+assert (root/'docs/MOBILE_NATIVE_STRATEGY.md').exists(), 'Mobile/native strategy missing'
+css=(root/'styles.css').read_text(encoding='utf-8')
+assert '@media (max-width:1024px)' in css and '@media (min-width:1025px)' in css, 'Dual app/web breakpoints missing'
+print('V5 adaptive app/native-readiness guards: OK')
