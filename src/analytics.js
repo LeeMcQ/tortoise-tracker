@@ -4,7 +4,7 @@ const BLOCKED=new Set(['lat','lng','latitude','longitude','email','name','notes'
 function sanitise(properties={}){ const safe={}; for(const [k,v] of Object.entries(properties)){ if(BLOCKED.has(k))continue; if(['string','number','boolean'].includes(typeof v)||v==null)safe[k]=v; } return safe; }
 async function sendServer(event){
   const c=window.NAUTILUS_CONFIG||{}; if(c.demoMode||!c.supabaseUrl||!c.supabasePublishableKey||!navigator.onLine)return;
-  try{await fetch(`${c.supabaseUrl.replace(/\/$/,'')}/functions/v1/product-event`,{method:'POST',headers:{apikey:c.supabasePublishableKey,Authorization:`Bearer ${c.supabasePublishableKey}`,'Content-Type':'application/json'},body:JSON.stringify({event_name:event.name,properties:event.properties})});}catch{}
+  try{await fetch(`${c.supabaseUrl.replace(/\/$/,'')}/functions/v1/product-event`,{method:'POST',headers:{apikey:c.supabasePublishableKey,'Content-Type':'application/json'},body:JSON.stringify({event_name:event.name,properties:event.properties})});}catch{}
 }
 export function track(name,properties={}){
   if(!window.NAUTILUS_CONFIG.publicAnalyticsEnabled||!ALLOWED.has(name)) return;

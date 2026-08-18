@@ -12,9 +12,9 @@ export function publicObservation(o,{latest=false}={}){
   const cfg=window.NAUTILUS_CONFIG;
   const metres=latest?cfg.publicLatestGeneralisationMetres:cfg.publicHistoryGeneralisationMetres;
   const p=generalisePoint(Number(o.lat),Number(o.lng),metres);
-  return {...o,lat:p?.lat??null,lng:p?.lng??null,notes:undefined,observer_user_id:undefined,observer_email:undefined,location_generalised:true,generalisation_metres:metres};
+  return {...o,lat:p?.lat??null,lng:p?.lng??null,accuracy_m:undefined,gps_accuracy_m:undefined,notes:undefined,observer_user_id:undefined,observer_email:undefined,location_generalised:true,generalisation_metres:metres};
 }
 export function isPubliclyReleased(o){
   const delay=(window.NAUTILUS_CONFIG.publicLatestDelayHours||0)*3600000;
-  return Date.now()-new Date(o.observed_at).getTime()>=delay;
+  return o.verification_status==='verified' && Date.now()-new Date(o.observed_at).getTime()>=delay;
 }

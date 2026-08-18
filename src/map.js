@@ -25,9 +25,22 @@ function legendControl(L,items,title='Legend'){
   const C=L.Control.extend({onAdd(){const d=L.DomUtil.create('div','map-legend');d.innerHTML=`<strong>${esc(title)}</strong>${items.map(i=>`<span><i style="--legend:${esc(i.color)}"></i>${esc(i.label)}</span>`).join('')}`;L.DomEvent.disableClickPropagation(d);return d;}});return new C({position:'bottomright'});
 }
 function popup(row,{showAccuracy=false,publicMode=false}={}){const af=document.documentElement.lang.startsWith('af');const bits=[`<strong>${esc(row.name||row.public_id||(af?'Waarneming':'Observation'))}</strong>`,esc(new Date(row.observed_at).toLocaleString(af?'af-ZA':'en-ZA'))];if(row.species_name)bits.push(esc(row.species_name));if(row.behaviour)bits.push(`${af?'Gedrag':'Behaviour'}: ${esc(human(row.behaviour))}`);if(row.condition)bits.push(`${af?'Toestand':'Condition'}: ${esc(human(row.condition))}`);if(showAccuracy&&(row.accuracy_m??row.gps_accuracy_m)!=null)bits.push(`GPS ±${Math.round(row.accuracy_m??row.gps_accuracy_m)} m`);if(publicMode)bits.push(af?'Openbare ligging veralgemeen':'Public position generalised');return bits.join('<br>');}
+
+function fallbackBounds(rows){
+  const valid=rows.filter(r=>Number.isFinite(Number(r.lat))&&Number.isFinite(Number(r.lng)));
+  if(!valid.length)return null;const lats=valid.map(r=>Number(r.lat)),lngs=valid.map(r=>Number(r.lng));let minLat=Math.min(...lats),maxLat=Math.max(...lats),minLng=Math.min(...lngs),maxLng=Math.max(...lngs);if(minLat===maxLat){minLat-=.001;maxLat+=.001;}if(minLng===maxLng){minLng-=.001;maxLng+=.001;}return{valid,minLat,maxLat,minLng,maxLng};
+}
+export function renderFallbackMap(element,rows,{theme='points',publicMode=false,legendTitle='Observations'}={}){
+  const b=fallbackBounds(rows);if(!b){element.innerHTML='<div class="map-empty"><strong>No mapped observations</strong><span>No released location records are available for this selection.</span></div>';return null;}
+  const W=900,H=520,pad=46,style=themeStyle(b.valid,theme);const xy=r=>{const x=pad+(Number(r.lng)-b.minLng)/(b.maxLng-b.minLng)*(W-pad*2),y=H-pad-(Number(r.lat)-b.minLat)/(b.maxLat-b.minLat)*(H-pad*2);return[x,y]};
+  const grid=[.25,.5,.75].map(f=>`<line x1="${pad}" y1="${pad+(H-pad*2)*f}" x2="${W-pad}" y2="${pad+(H-pad*2)*f}"/><line x1="${pad+(W-pad*2)*f}" y1="${pad}" x2="${pad+(W-pad*2)*f}" y2="${H-pad}"/>`).join('');
+  const pts=b.valid.map(r=>{const[x,y]=xy(r),c=style.color(r);return`<g><circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="8" fill="${esc(c)}" fill-opacity=".78" stroke="${esc(c)}" stroke-width="2"><title>${esc((r.name||r.public_id||'Observation')+' · '+new Date(r.observed_at).toLocaleString())}</title></circle></g>`}).join('');
+  const legend=style.legend.map((i,k)=>`<span><i style="--legend:${esc(i.color)}"></i>${esc(i.label)}</span>`).join('');
+  element.innerHTML=`<div class="offline-map" role="img" aria-label="${publicMode?'Generalised observation diagram':'Observation coordinate diagram'}"><svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet"><rect x="${pad}" y="${pad}" width="${W-pad*2}" height="${H-pad*2}" rx="8" fill="currentColor" opacity=".025"/><g class="fallback-grid">${grid}</g>${pts}<text x="${W-52}" y="34" text-anchor="middle" class="north-label">N ↑</text></svg><div class="map-legend fallback-legend"><strong>${esc(legendTitle)}</strong>${legend}</div><p class="map-fallback-note">Interactive basemap unavailable; observation positions are shown in their correct relative geographic arrangement.</p></div>`;return element;
+}
 export async function renderMap(element,rows,{centre,zoom,attribution,tileUrl,onSelect,connectPoints=false}={}){return renderThematicMap(element,rows,{centre,zoom,attribution,tileUrl,onSelect,connectPoints,theme:'points',publicMode:true});}
 export async function renderThematicMap(element,rows,{centre,zoom,attribution,tileUrl,onSelect,connectPoints=false,theme='points',publicMode=false,showAccuracy=false,densityCellMetres=250,enableMeasure=false,legendTitle='Legend'}={}){
-  const L=await ensureLeaflet();
+  let L;try{L=await ensureLeaflet();}catch(error){console.warn('Leaflet unavailable; using local spatial fallback',error);return renderFallbackMap(element,rows,{theme,publicMode,legendTitle});}
   if(element._leaflet_map){try{element._leaflet_map.remove();}catch{} element._leaflet_map=null;element.removeAttribute('_leaflet_id');}
   const map=L.map(element,{scrollWheelZoom:false,preferCanvas:true}).setView(centre||window.NAUTILUS_CONFIG.map.centre,zoom||window.NAUTILUS_CONFIG.map.zoom);element._leaflet_map=map;
   L.tileLayer(tileUrl||window.NAUTILUS_CONFIG.map.tileUrl,{maxZoom:19,attribution:attribution||window.NAUTILUS_CONFIG.map.attribution}).addTo(map);L.control.scale({imperial:false}).addTo(map);
