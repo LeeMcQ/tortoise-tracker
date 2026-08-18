@@ -41,3 +41,10 @@ assert (root/'docs/MOBILE_NATIVE_STRATEGY.md').exists(), 'Mobile/native strategy
 css=(root/'styles.css').read_text(encoding='utf-8')
 assert '@media (max-width:1024px)' in css and '@media (min-width:1025px)' in css, 'Dual app/web breakpoints missing'
 print('V5 adaptive app/native-readiness guards: OK')
+
+# V6 Nautilus Bay visual integration guards
+assert './assets/tortoise-leopard.svg' in sw and './assets/tortoise-angulate.svg' in sw and './assets/tortoise-padloper.svg' in sw, 'V6 tortoise illustrations must be cached'
+assert 'Slider_1.jpg' in css, 'Nautilus Bay scenic hero integration missing'
+assert 'Gallery_10.jpg' in css, 'Nautilus Bay reserve-story image integration missing'
+assert '--hestia-accent:#e91e63' in css and 'Roboto Slab' in css, 'Hestia visual-language integration missing'
+print('V6 Nautilus Bay brand-integration guards: OK')
