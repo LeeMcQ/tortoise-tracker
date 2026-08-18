@@ -86,3 +86,47 @@ html.native-wrapper body{overscroll-behavior:none}.native-wrapper .app-mode-badg
 
 @media (display-mode:standalone) and (max-width:1024px){.site-footer{display:none}#main-content{min-height:calc(100dvh - 64px - var(--app-tabbar-h) - var(--safe-top) - var(--safe-bottom))}}
 .native-wrapper .site-footer{display:none}.native-wrapper #main-content{min-height:calc(100dvh - 64px - var(--app-tabbar-h) - var(--safe-top) - var(--safe-bottom))}
+
+/* ========================================================================== */
+/* V6 — Nautilus Bay HOA / Hestia visual integration                         */
+/* ========================================================================== */
+:root{
+  --ink:#3c4858;
+  --muted:#777777;
+  --muted-soft:#999999;
+  --ocean:#0b5964;
+  --ocean2:#147985;
+  --sea:#e7f1f1;
+  --sand:#f7f7f7;
+  --sand2:#f2eee6;
+  --paper:#ffffff;
+  --fynbos:#607956;
+  --fynbos2:#8da181;
+  --amber:#b98955;
+  --hestia-accent:#e91e63;
+  --line:#e4e4e4;
+  --shadow:0 10px 30px rgba(60,72,88,.12);
+  --shadow-strong:0 18px 45px rgba(34,46,55,.2);
+  --radius:12px;
+}
+body{background:var(--sand);color:var(--ink);font-family:"Roboto",Arial,sans-serif;font-weight:400}
+h1,h2,h3,h4,h5,h6,.hero h1,.page-heading h1,.profile-copy h1,.impact-panel h2,.detail-card h2,.animal-card-copy h3,.stat-card strong{font-family:"Roboto Slab",Georgia,serif;letter-spacing:-.02em;color:var(--ink)}
+.site-header{background:rgba(255,255,255,.97);border-bottom:0;box-shadow:0 2px 12px rgba(60,72,88,.10);backdrop-filter:blur(12px)}
+.brand{gap:12px}.brand-emblem{width:42px;height:42px;border-radius:6px;background:linear-gradient(145deg,var(--ocean),#153f49);box-shadow:0 3px 10px rgba(11,89,100,.25);font-family:"Roboto Slab",Georgia,serif;color:#fff;font-size:.82rem;letter-spacing:.08em;font-weight:700}.brand-emblem span{transform:translateY(-1px)}
+.brand-copy strong{font-family:"Roboto Slab",Georgia,serif;font-size:1.06rem;font-weight:600;color:var(--ink)}.brand-copy small{font-family:"Roboto",Arial,sans-serif;color:var(--muted-soft);font-weight:500}
+.desktop-nav a,.mobile-menu a{font-family:"Roboto",Arial,sans-serif;font-weight:500;color:#444;letter-spacing:.015em}.desktop-nav a:hover,.desktop-nav a[aria-current="page"]{color:var(--hestia-accent)}
+.eyebrow{font-family:"Roboto",Arial,sans-serif;font-weight:700;color:var(--hestia-accent);letter-spacing:.14em}.eyebrow.light{color:rgba(255,255,255,.85)}
+.hoa-hero{min-height:620px;background-color:#2f4b55;background-image:linear-gradient(105deg,rgba(31,44,52,.90) 0%,rgba(31,44,52,.70) 50%,rgba(31,44,52,.28) 100%),url("https://nautilusbayhoa.co.za/wp-content/uploads/2017/09/Slider_1.jpg");background-size:cover;background-position:center 45%;background-repeat:no-repeat}.hoa-hero:after{display:none}.hoa-hero .hero-pattern{background:linear-gradient(180deg,transparent 65%,rgba(0,0,0,.15));opacity:1}.hoa-hero .hero-content{max-width:700px}.hoa-hero h1{color:#fff;font-weight:600;line-height:1.02;text-shadow:0 2px 16px rgba(0,0,0,.24);font-size:clamp(3rem,5.5vw,5.4rem)}.hoa-hero p{font-family:"Roboto",Arial,sans-serif;font-weight:300;font-size:1.15rem;line-height:1.7;color:rgba(255,255,255,.9)}
+.hero-tortoise-card{width:min(370px,34vw);background:rgba(255,255,255,.94);border-radius:10px;overflow:hidden;box-shadow:var(--shadow-strong);border:1px solid rgba(255,255,255,.55);transform:rotate(1.5deg)}.hero-tortoise-card img{display:block;width:100%;aspect-ratio:1.47;object-fit:cover}.hero-tortoise-card>div{display:flex;flex-direction:column;padding:18px 20px}.hero-tortoise-card span{font-size:.72rem;text-transform:uppercase;letter-spacing:.13em;color:var(--hestia-accent);font-weight:700}.hero-tortoise-card strong{font-family:"Roboto Slab",Georgia,serif;color:var(--ink);font-size:1.1rem;margin-top:4px}
+.btn{border-radius:6px;text-transform:uppercase;letter-spacing:.055em;font-size:.78rem;font-family:"Roboto",Arial,sans-serif;font-weight:700;box-shadow:0 2px 5px rgba(0,0,0,.13);transition:transform .16s ease,box-shadow .16s ease,background .16s ease}.btn:hover{transform:translateY(-1px);box-shadow:0 5px 14px rgba(0,0,0,.17)}.btn.primary{background:var(--ocean)}.btn.secondary{border-color:#ccd1d3;box-shadow:none;background:#fff}.btn.light.primary{background:#fff;color:var(--ink)}.btn.light.secondary{background:rgba(255,255,255,.06);color:#fff;border-color:rgba(255,255,255,.6);box-shadow:none}
+.stat-card,.animal-card,.form-card,.scanner-card,.flow-card,.prose-card,.detail-card,.panel,.table-card,.health-card{border:0;background:#fff;border-radius:10px;box-shadow:0 5px 22px rgba(60,72,88,.10)}.stat-card{border-top:3px solid var(--ocean);padding:24px 25px}.stat-card strong{font-weight:600;color:var(--ink)}.stat-card span{color:var(--muted-soft);font-weight:700}
+.animal-card{transition:transform .18s ease,box-shadow .18s ease}.animal-card:hover{transform:translateY(-5px);box-shadow:0 14px 34px rgba(60,72,88,.16)}.animal-visual{background:#e8ece7}.animal-id{border-radius:4px;background:rgba(255,255,255,.94);box-shadow:0 2px 8px rgba(0,0,0,.12);color:var(--ink)}.animal-card-copy{padding:22px 24px 25px}.animal-card-copy h3{font-weight:600;color:var(--ink)}.animal-card-copy p{color:var(--muted-soft)}.kicker{color:var(--hestia-accent);font-weight:700}.arrow-link,.text-link{color:var(--ocean);font-weight:700}
+.page-heading h1,.profile-copy h1{font-weight:600}.lede{color:var(--muted);font-weight:300}.profile-visual{border-radius:10px;background:#e9ece6;box-shadow:0 8px 26px rgba(60,72,88,.14)}.profile-photo{border-radius:10px}.id-chip{border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.13)}
+.impact-panel{background:#fff;border-radius:10px;box-shadow:0 7px 26px rgba(60,72,88,.09);border-top:4px solid var(--ocean)}.impact-panel h2{font-weight:600}.impact-list strong{font-family:"Roboto Slab",Georgia,serif;color:var(--hestia-accent)}
+.reserve-story{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr);gap:0;padding:0;margin-top:20px;margin-bottom:80px;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 8px 30px rgba(60,72,88,.12)}.reserve-story-image{min-height:430px;background-color:#d9e4e4;background-image:linear-gradient(rgba(60,72,88,.05),rgba(60,72,88,.05)),url("https://nautilusbayhoa.co.za/wp-content/uploads/2017/10/Gallery_10.jpg");background-size:cover;background-position:center}.reserve-story-copy{padding:50px 52px;align-self:center}.reserve-story-copy h2{font-family:"Roboto Slab",Georgia,serif;font-weight:600;font-size:clamp(2rem,3.7vw,3.25rem);line-height:1.13;margin:.35rem 0 1rem;color:var(--ink)}.reserve-story-copy p{color:var(--muted);font-weight:300;font-size:1.02rem;line-height:1.75}.reserve-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:28px 0}.reserve-facts span{display:flex;flex-direction:column;border-left:2px solid var(--hestia-accent);padding-left:12px;color:var(--muted-soft);font-size:.76rem;text-transform:uppercase;letter-spacing:.06em}.reserve-facts strong{font-family:"Roboto Slab",Georgia,serif;color:var(--ink);font-size:1.3rem;text-transform:none;letter-spacing:0;margin-bottom:2px}
+.field input,.field select,.field textarea,.search-input,.map-toolbar select{border-radius:6px;border-color:#d4d6d7;font-family:"Roboto",Arial,sans-serif}.field input:focus,.field select:focus,.field textarea:focus,.search-input:focus,.map-toolbar select:focus{border-color:var(--ocean);box-shadow:0 0 0 3px rgba(11,89,100,.10)}
+.site-footer{background:#323437;color:#e8e8e8}.site-footer span,.site-footer a{color:#bcbcbc}.site-footer strong{font-family:"Roboto Slab",Georgia,serif;color:#fff}
+.app-tabbar{font-family:"Roboto",Arial,sans-serif}.app-tabbar a[aria-current="page"]{color:var(--ocean)}
+@media(max-width:1024px){.hero-tortoise-card{width:min(330px,40vw)}.reserve-story{grid-template-columns:1fr}.reserve-story-image{min-height:330px}.reserve-story-copy{padding:38px 40px}}
+@media(max-width:620px){.site-header{box-shadow:0 2px 10px rgba(60,72,88,.09)}.brand-emblem{width:38px;height:38px}.hoa-hero{min-height:auto;background-position:58% center;padding-top:48px}.hoa-hero .hero-content{padding-right:0}.hoa-hero h1{font-size:clamp(2.55rem,12vw,3.55rem)}.hoa-hero p{font-size:1rem;line-height:1.55}.hero-orbit{display:block!important;margin-top:26px}.hero-tortoise-card{width:100%;max-width:360px;transform:none;margin:0 auto}.hero-tortoise-card img{aspect-ratio:2.05;object-position:center 46%}.reserve-story{width:min(100% - 26px,var(--max));margin-bottom:50px}.reserve-story-image{min-height:230px}.reserve-story-copy{padding:28px 24px 32px}.reserve-story-copy h2{font-size:2rem}.reserve-facts{grid-template-columns:1fr 1fr 1fr}.reserve-facts span{font-size:.65rem;padding-left:8px}.reserve-facts strong{font-size:1.05rem}.btn{border-radius:8px}.animal-card,.stat-card,.form-card,.scanner-card,.flow-card,.prose-card,.detail-card,.panel,.table-card,.health-card{border-radius:10px}}
+@media(display-mode:standalone) and (max-width:1024px){.site-header{background:#fff}.hoa-hero{border-radius:0}.hero-tortoise-card{box-shadow:0 10px 28px rgba(0,0,0,.22)}}

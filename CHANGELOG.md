@@ -63,3 +63,14 @@
 - Added full English/Afrikaans string system.
 - Added privacy-safe product telemetry and web performance metrics.
 - Added CI/unit/static checks, security headers and formal release gates.
+
+## V6 — 2026-08-18 — Nautilus Bay visual integration
+
+- Integrated the tracker with the visual language of the Nautilus Bay HOA website.
+- Adopted the Hestia-style Roboto / Roboto Slab typography system with resilient local fallbacks.
+- Shifted public surfaces toward Hestia's charcoal/grey material hierarchy while retaining conservation-specific ocean/fynbos functional colours.
+- Added Nautilus Bay's existing scenic imagery as the home hero and reserve-story image, with CSS fallbacks if the remote image is unavailable.
+- Replaced demo emoji/placeholder presentation with three local, original tortoise illustrations for Leopard tortoise, Angulate tortoise and Padloper demonstration records.
+- Added reserve landscape context and 600 ha / 400 ha fynbos / 9 km beach facts on the public home screen.
+- Restyled navigation, cards, profile surfaces, statistics, forms, buttons and footer to bridge the HOA website and the installed-app experience.
+- Preserved all V5 adaptive mobile/tablet navigation, desktop research UI, GIS analytics, offline-first operation and APK/native-readiness architecture.

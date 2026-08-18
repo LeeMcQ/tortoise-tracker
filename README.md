@@ -1,8 +1,8 @@
-# Nautilus Bay Digital Conservation Platform V5 — Adaptive App/Web Release
+# Nautilus Bay Digital Conservation Platform V6 — Nautilus Bay Integrated Brand Release
 
-V5 preserves the full V4 conservation/GIS/scientific capability while adding an adaptive presentation layer: app-like on phones/tablets and installed PWA sessions, conventional professional website behaviour on desktop, plus a platform capability adapter and packaging strategy for future Android APK conversion.
+V6 preserves the complete adaptive app/web architecture and conservation/GIS/scientific capability while integrating the public visual identity with the Nautilus Bay HOA website: scenic reserve imagery, Hestia-derived typography/material hierarchy and dedicated local tortoise illustrations for demonstration records.
 
-See `docs/ADAPTIVE_EXPERT_REVIEW.md` and `docs/MOBILE_NATIVE_STRATEGY.md`.
+See `docs/BRAND_INTEGRATION_REVIEW.md`, `docs/ADAPTIVE_EXPERT_REVIEW.md` and `docs/MOBILE_NATIVE_STRATEGY.md`.
 
 Production-oriented upgrade of the Nautilus Bay Tortoise Tracker. The public experience remains a fast mobile PWA, while the protected backend is designed for research provenance, health-case management, spatial security, offline field capture and future telemetry.
 
@@ -26,7 +26,7 @@ npm run qa
 
 The codebase has no runtime npm dependencies; map code is lazy-loaded only when a map is requested. Production Supabase Edge Functions use server-side dependencies in Deno.
 
-## What V4 implements
+## What V6 implements
 
 - Five-step public sighting flow with a GPS permission explanation before requesting location.
 - QR/manual/untagged identification provenance.
@@ -85,7 +85,7 @@ When the final subdomain is live, change `siteUrl` to `https://tortoise.nautilus
 
 The software supports QR, visible IDs, PIT/RFID and future electronic devices, but it does **not** approve any physical marking or attachment method. Wildlife/veterinary approval is a mandatory release gate.
 
-## V4 Spatial Analytics and Insights
+## Spatial Analytics and Insights
 
 V4 adds two analytical surfaces:
 
