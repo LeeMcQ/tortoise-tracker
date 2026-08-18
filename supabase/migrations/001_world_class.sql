@@ -339,9 +339,9 @@ left join lateral (select * from public.observation_reviews x where x.observatio
 
 -- ---------- public-safe functions: no raw exact coordinates ----------
 create or replace function public.list_public_animals()
-returns table(public_id text,name text,scientific_name text,common_name_en text,common_name_af text,sex public.sex_type,life_stage text,estimated_age_years numeric,identifying_features text,last_observed_at timestamptz)
+returns table(public_id text,name text,scientific_name text,common_name_en text,common_name_af text,conservation_status text,sex public.sex_type,life_stage text,estimated_age_years numeric,identifying_features text,profile_photo_id uuid,last_observed_at timestamptz)
 language sql stable security definer set search_path=public,extensions as $$
-  select a.public_id,a.name,t.scientific_name,t.common_name_en,t.common_name_af,a.sex,a.life_stage,a.estimated_age_years,a.identifying_features,
+  select a.public_id,a.name,t.scientific_name,t.common_name_en,t.common_name_af,t.conservation_status,a.sex,a.life_stage,a.estimated_age_years,a.identifying_features,a.profile_photo_id,
     (select max(coalesce((co.changes->>'observed_at')::timestamptz,o.observed_at)) from public.observations o
      left join lateral (select status from public.observation_reviews r where r.observation_id=o.id order by r.reviewed_at desc limit 1) rv on true
      left join lateral (select changes from public.observation_corrections c where c.observation_id=o.id order by c.created_at desc limit 1) co on true
@@ -352,7 +352,7 @@ language sql stable security definer set search_path=public,extensions as $$
 $$;
 
 create or replace function public.get_public_animal(p_public_id text)
-returns table(public_id text,name text,scientific_name text,common_name_en text,common_name_af text,sex public.sex_type,life_stage text,estimated_age_years numeric,identifying_features text,last_observed_at timestamptz)
+returns table(public_id text,name text,scientific_name text,common_name_en text,common_name_af text,conservation_status text,sex public.sex_type,life_stage text,estimated_age_years numeric,identifying_features text,profile_photo_id uuid,last_observed_at timestamptz)
 language sql stable security definer set search_path=public,extensions as $$
   select * from public.list_public_animals() where public_id=upper(p_public_id) limit 1;
 $$;

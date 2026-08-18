@@ -5,9 +5,9 @@ export const DEMO = {
     {id:'tax-padloper', scientific_name:'Homopus sp.', common_name_en:'Padloper', common_name_af:'Padloper'}
   ],
   animals: [
-    {id:'a1', public_id:'T0047', name:'Shelly', taxon_id:'tax-leopard', sex:'female', life_stage:'adult', estimated_age_years:18, identifying_features:'Warm amber shell with a pale star-shaped marking on the rear-left scute.', registration_date:'2026-01-14', status:'active', profile_photo:null},
-    {id:'a2', public_id:'T0128', name:'Atlas', taxon_id:'tax-angulate', sex:'male', life_stage:'adult', estimated_age_years:12, identifying_features:'Dark shell margin and a small healed notch on the front-right scute.', registration_date:'2026-02-02', status:'active', profile_photo:null},
-    {id:'a3', public_id:'T0387', name:'Sandy', taxon_id:'tax-padloper', sex:'unknown', life_stage:'adult', estimated_age_years:null, identifying_features:'Small adult with a sand-coloured carapace and darker central scutes.', registration_date:'2026-06-18', status:'active', profile_photo:null}
+    {id:'a1', public_id:'T0047', name:'Shelly', taxon_id:'tax-leopard', sex:'female', life_stage:'adult', estimated_age_years:18, identifying_features:'Warm amber shell with a pale star-shaped marking on the rear-left scute.', registration_date:'2026-01-14', status:'active', profile_photo:null, profile_photo_url:'./assets/tortoise-leopard.svg'},
+    {id:'a2', public_id:'T0128', name:'Atlas', taxon_id:'tax-angulate', sex:'male', life_stage:'adult', estimated_age_years:12, identifying_features:'Dark shell margin and a small healed notch on the front-right scute.', registration_date:'2026-02-02', status:'active', profile_photo:null, profile_photo_url:'./assets/tortoise-angulate.svg'},
+    {id:'a3', public_id:'T0387', name:'Sandy', taxon_id:'tax-padloper', sex:'unknown', life_stage:'adult', estimated_age_years:null, identifying_features:'Small adult with a sand-coloured carapace and darker central scutes.', registration_date:'2026-06-18', status:'active', profile_photo:null, profile_photo_url:'./assets/tortoise-padloper.svg'}
   ],
   identifiers: [
     {id:'id1', animal_id:'a1', type:'visible_id', value:'T0047', active:true}, {id:'id2', animal_id:'a1', type:'qr', value:'T0047', active:true},
