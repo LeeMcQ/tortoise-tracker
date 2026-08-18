@@ -2,8 +2,8 @@ function b64urlDecode(segment){ try{ return JSON.parse(atob(segment.replace(/-/g
 export class SupabaseAPI {
   constructor(){ const c=window.NAUTILUS_CONFIG; this.url=(c.supabaseUrl||'').replace(/\/$/,''); this.key=c.supabasePublishableKey||''; this.session=JSON.parse(sessionStorage.getItem('nautilus-supabase-session')||'null'); this._refreshing=null; }
   configured(){ return Boolean(this.url&&this.key); }
-  token(){ return this.session?.access_token || this.key; }
-  headers(extra={}){ return {apikey:this.key,Authorization:`Bearer ${this.token()}`,...extra}; }
+  token(){ return this.session?.access_token || ''; }
+  headers(extra={}){ const h={apikey:this.key,...extra}; if(this.session?.access_token)h.Authorization=`Bearer ${this.session.access_token}`; return h; }
   async request(path,{method='GET',body,headers={},retry=true}={}){ const r=await fetch(`${this.url}${path}`,{method,headers:this.headers(body instanceof FormData?headers:{'Content-Type':'application/json',...headers}),body:body instanceof FormData?body:body==null?undefined:JSON.stringify(body)}); if(r.status===401&&retry&&this.session?.refresh_token&&!path.startsWith('/auth/v1/token')){try{if(!this._refreshing)this._refreshing=this.refresh().finally(()=>this._refreshing=null);await this._refreshing;return this.request(path,{method,body,headers,retry:false});}catch{this.logout();}} if(!r.ok) throw new Error(await r.text()); const ct=r.headers.get('content-type')||''; return ct.includes('json')?r.json():r.text(); }
   async rpc(name,params={}){ return this.request(`/rest/v1/rpc/${name}`,{method:'POST',body:params}); }
   publicProfilePhotoUrl(animal){ return animal?.profile_photo_id ? `${this.url}/functions/v1/public-profile-photo?id=${encodeURIComponent(animal.public_id)}&v=${encodeURIComponent(animal.profile_photo_id)}` : null; }
@@ -19,9 +19,10 @@ export class SupabaseAPI {
   aal(){ return this.jwt().aal || 'aal1'; }
   async profile(){ const rows=await this.request('/rest/v1/profiles?select=user_id,display_name,role,active&user_id=eq.'+encodeURIComponent(this.jwt().sub||'')); return rows?.[0]||null; }
   async listFactors(){ return this.request('/auth/v1/factors'); }
+  async enrollTotp(friendlyName='Nautilus Bay Administrator'){ return this.request('/auth/v1/factors',{method:'POST',body:{factor_type:'totp',friendly_name:friendlyName}}); }
   async challengeFactor(factorId){ return this.request(`/auth/v1/factors/${factorId}/challenge`,{method:'POST',body:{}}); }
   async verifyFactor(factorId,challengeId,code){ const data=await this.request(`/auth/v1/factors/${factorId}/verify`,{method:'POST',body:{challenge_id:challengeId,code}}); if(data?.access_token){ this.session={...this.session,...data}; sessionStorage.setItem('nautilus-supabase-session',JSON.stringify(this.session)); } return data; }
-  async staffAnimals(){ return this.request('/rest/v1/animals?select=*&order=public_id.asc'); }
+  async staffAnimals(){ const rows=await this.request('/rest/v1/animals?select=*&order=public_id.asc'); return (rows||[]).map(a=>({...a,profile_photo_url:a.profile_photo_id&&a.status==='active'?this.publicProfilePhotoUrl(a):null})); }
   async staffObservations(){ return this.request('/rest/v1/observations_effective?select=*&order=observed_at.desc'); }
   async staffHealthCases(){ return this.request('/rest/v1/health_cases?select=*&order=opened_at.desc'); }
   async staffTable(table,order='created_at.desc'){ return this.request(`/rest/v1/${table}?select=*&order=${encodeURIComponent(order)}`); }
@@ -33,5 +34,9 @@ export class SupabaseAPI {
   async updateHealthCase(id,row){ row={...row,updated_at:new Date().toISOString()}; return this.request(`/rest/v1/health_cases?id=eq.${encodeURIComponent(id)}`,{method:'PATCH',headers:{Prefer:'return=representation'},body:row}); }
   async createReview(row){ return this.request('/rest/v1/observation_reviews',{method:'POST',headers:{Prefer:'return=representation'},body:row}); }
   async createCorrection(row){ return this.request('/rest/v1/observation_corrections',{method:'POST',headers:{Prefer:'return=representation'},body:row}); }
+  async setProfilePhoto(animalId,photo){ const fd=new FormData(); fd.set('animal_id',animalId); fd.set('photo',photo.blob||photo,photo.original_name||'profile.jpg'); return this.request('/functions/v1/staff-profile-photo',{method:'POST',body:fd}); }
+  async clearProfilePhoto(animalId){ return this.updateAnimal(animalId,{profile_photo_id:null}); }
+  async staffObservationPhotos(observationId){ return this.request(`/rest/v1/photos?select=id,observation_id,animal_id,storage_path,mime_type,byte_size,width,height,captured_at,view_type,photo_quality,created_at&observation_id=eq.${encodeURIComponent(observationId)}&order=created_at.asc`); }
+  async staffPhotoDataUrl(photoId){ const r=await fetch(`${this.url}/functions/v1/staff-photo?id=${encodeURIComponent(photoId)}`,{headers:this.headers()}); if(!r.ok)throw new Error(await r.text()); const blob=await r.blob(); return new Promise((resolve,reject)=>{const fr=new FileReader();fr.onload=()=>resolve(fr.result);fr.onerror=()=>reject(fr.error);fr.readAsDataURL(blob);}); }
   async qrSvg(publicId){ const r=await fetch(`${this.url}/functions/v1/qr-svg?id=${encodeURIComponent(publicId)}`,{headers:this.headers()}); if(!r.ok) throw new Error(await r.text()); return r.text(); }
 }

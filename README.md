@@ -1,6 +1,46 @@
-# Nautilus Bay Digital Conservation Platform 
+# Nautilus Bay Digital Conservation Platform V8 — Production Regression Repair
 
-the adaptive app/web, GIS, analytics, offline and native-ready architecture while consolidating access to exactly three profiles — Public, Scientist and Administrator — and deepening the public About experience with reserve and nature information sourced from the Nautilus Bay HOA website. The requested Gallery_3 and Gallery_7 images are used for the Shelly and Atlas demonstration profiles.
+V8 is a deep production-repair release. It restores QR generation and individual movement maps, hardens the Supabase browser/Edge Function integration, adds scientifically auditable animal-data correction, enables profile-photo replacement/removal and staff sighting-photo review, fixes effective corrected coordinates, and adds first-time Administrator TOTP MFA enrolment.
+
+The complete audit is in `docs/V8_PRODUCTION_REGRESSION_AUDIT.md`.
+
+## V8 production repair highlights
+
+- Real QR creation in demo mode (no instructional placeholder), with open/print and SVG download.
+- Correct CORS/authentication for the production `qr-svg` Edge Function.
+- Correct Supabase publishable-key header handling; publishable keys are never treated as user JWTs.
+- Individual tortoise movement maps now have deterministic loading, no-data, error and local spatial-fallback states.
+- Demo and production maps apply effective reviews/corrections correctly.
+- Corrected lat/lng values propagate into staff/public effective GIS through migration 003.
+- Public history no longer exposes GPS accuracy.
+- Scientist dashboard no longer fails because `audit_log` is Admin-only.
+- Animal master-data editor supports correcting biological fields/status and changing/removing profile photographs.
+- Private sighting photographs can be reviewed by Scientist/Admin without making the storage bucket public.
+- Administrator accounts can enrol TOTP MFA on first login instead of being locked out.
+- V8 service-worker cache and demo storage namespaces prevent stale V7 behaviour.
+- One PowerShell function-deployment script applies the correct public/protected JWT settings.
+
+## Critical upgrade steps if Supabase is already connected
+
+```powershell
+npx supabase db push --dry-run
+npx supabase db push
+.\scripts\deploy_supabase_functions.ps1
+```
+
+Then set/confirm:
+
+```text
+PUBLIC_SITE_URL=https://leemcq.github.io/tortoise-tracker
+```
+
+Do not put a Supabase secret/service-role key in `config.js`; only the browser-safe publishable key belongs there.
+
+---
+
+# Nautilus Bay Digital Conservation Platform V7 — Three Profiles + HOA Nature Integration
+
+V7 preserves the adaptive app/web, GIS, analytics, offline and native-ready architecture while consolidating access to exactly three profiles — Public, Scientist and Administrator — and deepening the public About experience with reserve and nature information sourced from the Nautilus Bay HOA website. The requested Gallery_3 and Gallery_7 images are used for the Shelly and Atlas demonstration profiles.
 
 See `docs/BRAND_INTEGRATION_REVIEW.md`, `docs/ADAPTIVE_EXPERT_REVIEW.md` and `docs/MOBILE_NATIVE_STRATEGY.md`.
 

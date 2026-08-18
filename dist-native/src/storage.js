@@ -1,6 +1,6 @@
 import { DEMO } from './demo-data.js';
 
-const KEY = 'nautilus-conservation-v4';
+const KEY = 'nautilus-conservation-v8';
 const deepClone = v => typeof structuredClone==='function' ? structuredClone(v) : JSON.parse(JSON.stringify(v));
 
 function initial(){ return deepClone(DEMO); }
@@ -29,7 +29,9 @@ export const DemoDB = {
   effectiveObservation(id){
     const base=this.observation(id); if(!base) return null;
     const corrections=this.all('observation_corrections').filter(c=>c.observation_id===id).sort((a,b)=>new Date(a.created_at)-new Date(b.created_at));
-    return corrections.reduce((row,c)=>({...row,...c.changes, correction_count:(row.correction_count||0)+1}), {...base, correction_count:0});
+    const reviews=this.all('observation_reviews').filter(r=>r.observation_id===id).sort((a,b)=>new Date(a.reviewed_at)-new Date(b.reviewed_at));
+    const row=corrections.reduce((r,c)=>({...r,...c.changes, correction_count:(r.correction_count||0)+1}), {...base, correction_count:0});
+    const latest=reviews.at(-1); if(latest)row.verification_status=latest.status; return row;
   },
   createObservation(row){
     return mutate(s=>{
@@ -47,6 +49,8 @@ export const DemoDB = {
   addCorrection(observationId,changes,reason,actor){ return mutate(s=>{ const c={id:uuid(),observation_id:observationId,changes,reason,actor,created_at:new Date().toISOString()}; s.observation_corrections.push(c); s.audit_log.push({id:uuid(),occurred_at:c.created_at,actor,action:'observation_correction_appended',entity_type:'observation',entity_id:observationId,detail:reason}); return c; }); },
   createAnimal(row,actor='Admin'){ return mutate(s=>{ if(s.animals.some(a=>a.public_id===row.public_id)) throw new Error('Public ID already exists'); const a={id:uuid(),status:'active',registration_date:new Date().toISOString().slice(0,10),...row}; s.animals.push(a); s.identifiers.push({id:uuid(),animal_id:a.id,type:'visible_id',value:a.public_id,active:true},{id:uuid(),animal_id:a.id,type:'qr',value:a.public_id,active:true}); s.audit_log.push({id:uuid(),occurred_at:new Date().toISOString(),actor,action:'animal_created',entity_type:'animal',entity_id:a.id,detail:a.public_id}); return a; }); },
   updateAnimal(id,changes,actor='Admin'){ return mutate(s=>{ const a=s.animals.find(x=>x.id===id); if(!a) throw new Error('Animal not found'); const before={...a}; Object.assign(a,changes); s.audit_log.push({id:uuid(),occurred_at:new Date().toISOString(),actor,action:'animal_updated',entity_type:'animal',entity_id:id,detail:JSON.stringify({before,after:a})}); return a; }); },
+  setProfilePhoto(id,dataUrl,actor='Admin'){ return this.updateAnimal(id,{profile_photo_url:dataUrl,profile_photo:`demo-photo-${Date.now()}`},actor); },
+  clearProfilePhoto(id,actor='Admin'){ return this.updateAnimal(id,{profile_photo_url:null,profile_photo:null},actor); },
   archiveAnimal(id,actor='Admin'){ return this.updateAnimal(id,{status:'archived'},actor); },
   addMeasurement(row,actor='Scientist'){ return mutate(s=>{ const m={id:uuid(),measured_at:new Date().toISOString(),recorded_by:actor,...row}; s.measurements.push(m); s.audit_log.push({id:uuid(),occurred_at:new Date().toISOString(),actor,action:'measurement_created',entity_type:'measurement',entity_id:m.id,detail:`${m.measurement_type} ${m.value} ${m.unit}`}); return m; }); },
   createHealthCase(row,actor='Scientist'){ return mutate(s=>{ const c={id:uuid(),opened_at:new Date().toISOString(),status:'open',...row}; s.health_cases.push(c); s.audit_log.push({id:uuid(),occurred_at:c.opened_at,actor,action:'health_case_created',entity_type:'health_case',entity_id:c.id,detail:c.summary}); return c; }); },

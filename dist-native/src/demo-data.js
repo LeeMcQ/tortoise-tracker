@@ -25,7 +25,8 @@ export const DEMO = {
   observation_corrections: [],
   observation_reviews: [
     {id:'rv1', observation_id:'o1', status:'verified', reason:'Clear QR, photo and high accuracy GPS.', reviewer:'Scientist Demo', reviewed_at:'2026-05-04T10:00:00+02:00'},
-    {id:'rv2', observation_id:'o2', status:'verified', reason:'Identity confirmed from shell pattern.', reviewer:'Scientist Demo', reviewed_at:'2026-06-17T08:00:00+02:00'}
+    {id:'rv2', observation_id:'o2', status:'verified', reason:'Identity confirmed from shell pattern.', reviewer:'Scientist Demo', reviewed_at:'2026-06-17T08:00:00+02:00'},
+    {id:'rv3', observation_id:'o6', status:'verified', reason:'Synthetic demonstration record verified so the individual movement-map workflow can be tested.', reviewer:'Scientist Demo', reviewed_at:'2026-08-08T09:00:00+02:00'}
   ],
   measurements: [
     {id:'m1', animal_id:'a1', measured_at:'2026-03-10T09:30:00+02:00', measurement_type:'mass', value:6.2, unit:'kg', method:'calibrated field scale', confidence:'high', recorded_by:'Scientist Demo'},

@@ -1,8 +1,8 @@
 const CACHE_PREFIX = 'nautilus-tortoise-tracker-';
-const CACHE = `${CACHE_PREFIX}v7-20260818-three-profiles-nature`;
+const CACHE = `${CACHE_PREFIX}v8-20260818-production-repair`;
 const SHELL = [
   './','./index.html','./config.js','./styles.css','./manifest.webmanifest',
-  './icons/icon.svg','./icons/icon-192.png','./icons/icon-512.png','./icons/tortoise-placeholder.svg','./icons/tortoise-padloper.svg',
+  './icons/icon.svg','./icons/icon-192.png','./icons/icon-512.png','./icons/tortoise-placeholder.svg','./icons/tortoise-padloper.svg','./icons/qr/T0047.svg','./icons/qr/T0128.svg','./icons/qr/T0387.svg',
   './src/app.js','./src/platform.js','./src/i18n.js','./src/demo-data.js','./src/storage.js',
   './src/offline.js','./src/quality.js','./src/privacy.js','./src/analytics.js',
   './src/repository.js','./src/supabase-api.js','./src/map.js','./src/export.js','./src/analysis.js','./src/charts.js','./src/performance.js'

@@ -1,3 +1,21 @@
+# V8.0.0 — Production Regression Repair
+
+- Replaced the deployed demo QR placeholder with real, decodable SVG QR codes and QR open/print/download actions.
+- Added CORS/OPTIONS and Admin validation to production `qr-svg`.
+- Corrected Supabase publishable-key authentication headers for anonymous browser traffic.
+- Added resilient individual movement maps with explicit no-data/error states and a local SVG geographic fallback when Leaflet cannot load.
+- Applied latest demo reviews and cumulative corrections to effective observation state; public release now requires verified records.
+- Added migration `003_production_regression_repairs.sql` so corrected lat/lng values propagate through effective/public GIS and public GPS accuracy is not returned.
+- Made Scientist snapshots tolerant of Admin-only audit-log RLS.
+- Expanded animal master-data correction and status editing.
+- Added secure profile-photo upload/change/remove using private Supabase Storage.
+- Added protected Scientist/Admin sighting-photo review.
+- Added first-time Administrator TOTP MFA enrolment with QR/manual secret and AAL2 verification.
+- Added Padloper production taxon, last-seen correction, GPS-field compatibility and QR site-URL hardening.
+- Added function deployment script with correct JWT gateway settings.
+- Bumped PWA cache and demo storage namespaces to avoid stale V7 data/behaviour.
+- Added deep regression suite; 29/29 automated tests pass.
+
 # V7.0.0 — Three Profiles + HOA Nature Integration
 
 - Consolidated all protected operational roles into **Scientist** and **Administrator**; Public remains anonymous.
