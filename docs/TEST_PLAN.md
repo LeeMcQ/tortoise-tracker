@@ -21,7 +21,7 @@
 ## Security
 - Anonymous cannot select raw observations/photos/health/telemetry.
 - Public map contains no raw coordinates in network response.
-- Ranger/researcher/veterinarian/admin role matrices.
+- Public/Scientist/Administrator access-profile matrices.
 - Admin AAL1 blocked from admin-only operations; AAL2 succeeds.
 - Service-role key absent from browser/repository.
 - Unsupported upload MIME/size rejected server-side.

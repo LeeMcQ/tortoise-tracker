@@ -74,3 +74,14 @@
 | ARCH-NATIVE-003 | Project shall contain a reproducible native web staging step. | `npm run native:stage`, `capacitor.config.json`, `dist-native`. | Automated test |
 | PWA-005 | Installed application shall launch in standalone mode and expose useful shortcuts. | Manifest `display`, `display_override`, `shortcuts`, `launch_handler`. | Automated manifest test |
 | SEC-NATIVE-001 | Native packaging shall not expose privileged Supabase credentials. | Same public client/Edge Function/RLS model; documented native release gate. | Security review |
+
+## V7 — Access consolidation and Nautilus Bay nature integration
+
+| ID | Requirement | Implementation | Verification |
+|---|---|---|---|
+| V7-ACC-001 | The platform shall expose only Public, Scientist and Administrator access profiles. | `src/app.js`, `src/i18n.js` | Automated V7 access-profile test |
+| V7-ACC-002 | Scientist shall consolidate former ranger, researcher and veterinarian operational capabilities. | `src/app.js`, `supabase/migrations/001_world_class.sql`, `002_consolidate_staff_roles.sql` | Static guards + SQL review |
+| V7-ACC-003 | Administrator shall retain all Scientist functions plus privileged administration and MFA/AAL2. | `src/app.js`, RLS policies | Existing MFA/RLS tests and static review |
+| V7-BRAND-001 | Shelly and Atlas demo images shall use the specified Nautilus Bay Gallery_3 and Gallery_7 images. | `src/demo-data.js`, CSP/image allow-list | Automated V7 brand test |
+| V7-ABOUT-001 | About shall include source-grounded reserve and nature context from the Nautilus Bay HOA website. | `src/app.js`, `src/i18n.js` | Automated V7 About test |
+| V7-DEPLOY-001 | GitHub Pages deployment shall not require a top-level assets folder. | remaining SVGs moved to `icons/`; staging script made optional | Static asset test |

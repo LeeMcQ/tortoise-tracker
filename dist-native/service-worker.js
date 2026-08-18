@@ -1,8 +1,8 @@
 const CACHE_PREFIX = 'nautilus-tortoise-tracker-';
-const CACHE = `${CACHE_PREFIX}v6-20260818-nautilus-brand`;
+const CACHE = `${CACHE_PREFIX}v7-20260818-three-profiles-nature`;
 const SHELL = [
   './','./index.html','./config.js','./styles.css','./manifest.webmanifest',
-  './icons/icon.svg','./icons/icon-192.png','./icons/icon-512.png','./assets/tortoise-placeholder.svg','./assets/tortoise-leopard.svg','./assets/tortoise-angulate.svg','./assets/tortoise-padloper.svg',
+  './icons/icon.svg','./icons/icon-192.png','./icons/icon-512.png','./icons/tortoise-placeholder.svg','./icons/tortoise-padloper.svg',
   './src/app.js','./src/platform.js','./src/i18n.js','./src/demo-data.js','./src/storage.js',
   './src/offline.js','./src/quality.js','./src/privacy.js','./src/analytics.js',
   './src/repository.js','./src/supabase-api.js','./src/map.js','./src/export.js','./src/analysis.js','./src/charts.js','./src/performance.js'

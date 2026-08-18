@@ -5,7 +5,7 @@
 create extension if not exists pgcrypto;
 create extension if not exists postgis with schema extensions;
 
-create type public.app_role as enum ('ranger','researcher','veterinarian','admin');
+create type public.app_role as enum ('scientist','admin');
 create type public.sex_type as enum ('unknown','female','male');
 create type public.verification_status as enum ('pending','verified','questionable','rejected');
 create type public.identifier_type as enum ('visible_id','qr','rfid','pit','natural','device');
@@ -110,7 +110,7 @@ create table public.observations (
   behaviour text,
   condition text,
   notes text check (char_length(notes) <= 2000),
-  observer_type text not null default 'visitor' check (observer_type in ('visitor','ranger','researcher','veterinarian','admin','device_import')),
+  observer_type text not null default 'visitor' check (observer_type in ('visitor','scientist','admin','device_import')),
   observer_user_id uuid references auth.users(id),
   quality_score integer not null check (quality_score between 0 and 100),
   verification_status public.verification_status not null default 'pending',
@@ -456,42 +456,42 @@ create policy profiles_admin_manage on public.profiles for all to authenticated 
 
 create policy config_staff_read on public.reserve_config for select to authenticated using (public.is_staff());
 create policy config_admin_update on public.reserve_config for update to authenticated using (public.current_app_role()='admin' and public.is_aal2()) with check (public.current_app_role()='admin' and public.is_aal2());
-create policy zones_staff_all on public.reserve_zones for all to authenticated using (public.current_app_role() in ('ranger','researcher','admin')) with check (public.current_app_role() in ('researcher','admin'));
+create policy zones_staff_all on public.reserve_zones for all to authenticated using (public.current_app_role() in ('scientist','admin')) with check (public.current_app_role() in ('scientist','admin'));
 create policy taxa_staff_read on public.taxa for select to authenticated using (public.is_staff());
-create policy taxa_research_manage on public.taxa for all to authenticated using (public.current_app_role() in ('researcher','admin')) with check (public.current_app_role() in ('researcher','admin'));
+create policy taxa_research_manage on public.taxa for all to authenticated using (public.current_app_role() in ('scientist','admin')) with check (public.current_app_role() in ('scientist','admin'));
 
 create policy animals_staff_read on public.animals for select to authenticated using (public.is_staff());
-create policy animals_staff_insert on public.animals for insert to authenticated with check (public.current_app_role() in ('ranger','researcher','admin'));
-create policy animals_staff_update on public.animals for update to authenticated using (public.current_app_role() in ('ranger','researcher','admin')) with check (public.current_app_role() in ('ranger','researcher','admin'));
+create policy animals_staff_insert on public.animals for insert to authenticated with check (public.current_app_role() in ('scientist','admin'));
+create policy animals_staff_update on public.animals for update to authenticated using (public.current_app_role() in ('scientist','admin')) with check (public.current_app_role() in ('scientist','admin'));
 create policy identifiers_staff_read on public.animal_identifiers for select to authenticated using (public.is_staff());
-create policy identifiers_staff_manage on public.animal_identifiers for all to authenticated using (public.current_app_role() in ('ranger','researcher','admin')) with check (public.current_app_role() in ('ranger','researcher','admin'));
+create policy identifiers_staff_manage on public.animal_identifiers for all to authenticated using (public.current_app_role() in ('scientist','admin')) with check (public.current_app_role() in ('scientist','admin'));
 
 create policy observations_staff_read on public.observations for select to authenticated using (public.is_staff());
 create policy observations_staff_insert on public.observations for insert to authenticated with check (public.is_staff());
 -- Deliberately no UPDATE or DELETE policy on observations.
 create policy corrections_staff_read on public.observation_corrections for select to authenticated using (public.is_staff());
-create policy corrections_staff_insert on public.observation_corrections for insert to authenticated with check (public.current_app_role() in ('ranger','researcher','admin'));
+create policy corrections_staff_insert on public.observation_corrections for insert to authenticated with check (public.current_app_role() in ('scientist','admin'));
 create policy reviews_staff_read on public.observation_reviews for select to authenticated using (public.is_staff());
-create policy reviews_staff_insert on public.observation_reviews for insert to authenticated with check (public.current_app_role() in ('ranger','researcher','veterinarian','admin'));
+create policy reviews_staff_insert on public.observation_reviews for insert to authenticated with check (public.current_app_role() in ('scientist','admin'));
 
 create policy photos_staff_read on public.photos for select to authenticated using (public.is_staff());
 create policy photos_staff_insert on public.photos for insert to authenticated with check (public.is_staff());
-create policy photos_staff_update on public.photos for update to authenticated using (public.current_app_role() in ('researcher','admin')) with check (public.current_app_role() in ('researcher','admin'));
+create policy photos_staff_update on public.photos for update to authenticated using (public.current_app_role() in ('scientist','admin')) with check (public.current_app_role() in ('scientist','admin'));
 
 create policy measurements_staff_read on public.measurements for select to authenticated using (public.is_staff());
-create policy measurements_research_insert on public.measurements for insert to authenticated with check (public.current_app_role() in ('ranger','researcher','admin'));
+create policy measurements_research_insert on public.measurements for insert to authenticated with check (public.current_app_role() in ('scientist','admin'));
 
 create policy health_staff_read on public.health_cases for select to authenticated using (public.is_staff());
-create policy health_staff_manage on public.health_cases for all to authenticated using (public.current_app_role() in ('ranger','researcher','veterinarian','admin')) with check (public.current_app_role() in ('ranger','researcher','veterinarian','admin'));
+create policy health_staff_manage on public.health_cases for all to authenticated using (public.current_app_role() in ('scientist','admin')) with check (public.current_app_role() in ('scientist','admin'));
 create policy health_events_staff_read on public.health_case_events for select to authenticated using (public.is_staff());
-create policy health_events_staff_insert on public.health_case_events for insert to authenticated with check (public.current_app_role() in ('ranger','researcher','veterinarian','admin'));
+create policy health_events_staff_insert on public.health_case_events for insert to authenticated with check (public.current_app_role() in ('scientist','admin'));
 
-create policy devices_research_read on public.devices for select to authenticated using (public.current_app_role() in ('researcher','admin'));
-create policy devices_research_manage on public.devices for all to authenticated using (public.current_app_role() in ('researcher','admin')) with check (public.current_app_role() in ('researcher','admin'));
-create policy deployments_research_read on public.deployments for select to authenticated using (public.current_app_role() in ('researcher','admin'));
-create policy deployments_research_manage on public.deployments for all to authenticated using (public.current_app_role() in ('researcher','admin')) with check (public.current_app_role() in ('researcher','admin'));
-create policy telemetry_research_read on public.telemetry_events for select to authenticated using (public.current_app_role() in ('researcher','admin'));
-create policy telemetry_research_insert on public.telemetry_events for insert to authenticated with check (public.current_app_role() in ('researcher','admin'));
+create policy devices_research_read on public.devices for select to authenticated using (public.current_app_role() in ('scientist','admin'));
+create policy devices_research_manage on public.devices for all to authenticated using (public.current_app_role() in ('scientist','admin')) with check (public.current_app_role() in ('scientist','admin'));
+create policy deployments_research_read on public.deployments for select to authenticated using (public.current_app_role() in ('scientist','admin'));
+create policy deployments_research_manage on public.deployments for all to authenticated using (public.current_app_role() in ('scientist','admin')) with check (public.current_app_role() in ('scientist','admin'));
+create policy telemetry_research_read on public.telemetry_events for select to authenticated using (public.current_app_role() in ('scientist','admin'));
+create policy telemetry_research_insert on public.telemetry_events for insert to authenticated with check (public.current_app_role() in ('scientist','admin'));
 
 create policy audit_admin_read on public.audit_log for select to authenticated using (public.current_app_role()='admin' and public.is_aal2());
 -- Product events are written by a controlled Edge Function/service role, not directly by anon clients.
@@ -505,7 +505,7 @@ on conflict(id) do update set public=false,file_size_limit=excluded.file_size_li
 create policy sighting_photos_staff_read on storage.objects for select to authenticated
 using (bucket_id='sighting-photos' and public.is_staff());
 
--- Seed common taxa (editable by researchers/admins).
+-- Seed common taxa (editable by Scientists/Administrators).
 insert into public.taxa(scientific_name,common_name_en,common_name_af) values
 ('Stigmochelys pardalis','Leopard tortoise','Luiperdskilpad'),
 ('Chersina angulata','Angulate tortoise','Ploegskaarskilpad')

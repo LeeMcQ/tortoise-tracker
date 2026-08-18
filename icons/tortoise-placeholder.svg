@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" role="img" aria-labelledby="t d">
+<title id="t">Tortoise profile placeholder</title><desc id="d">Stylised tortoise among coastal fynbos.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dfeeed"/><stop offset="1" stop-color="#9eb9a8"/></linearGradient></defs>
+<rect width="800" height="520" rx="36" fill="url(#bg)"/>
+<g fill="none" stroke="#0c4248" stroke-width="14" stroke-linecap="round" stroke-linejoin="round">
+<ellipse cx="390" cy="275" rx="185" ry="120" fill="#f6f2e8"/>
+<path d="M250 265c45-85 235-85 280 0M270 330c55-62 185-62 240 0M390 156v238M288 188l204 174M492 188L288 362" opacity=".45"/>
+<path d="M570 260c48-17 84-5 97 24-17 28-52 35-95 17M213 240c-42-28-78-25-99 1 13 33 47 46 91 36M272 369l-42 58M505 365l47 54M272 184l-41-55M506 188l47-50"/>
+</g>
+<g stroke="#4f684a" stroke-width="10" stroke-linecap="round"><path d="M85 447l18-83m-18 83l-32-44m50-39 31-40M690 455l-10-88m10 88 34-55m-44-33-34-39"/></g>
+<text x="400" y="485" text-anchor="middle" fill="#0c4248" font-family="Georgia,serif" font-size="28">Nautilus Bay conservation record</text>
+</svg>

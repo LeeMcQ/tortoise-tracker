@@ -9,5 +9,6 @@ for name in ['index.html','config.js','styles.css','manifest.webmanifest','servi
     src=ROOT/name
     if src.exists(): shutil.copy2(src,OUT/name)
 for name in ['src','icons','assets']:
-    shutil.copytree(ROOT/name,OUT/name)
+    src=ROOT/name
+    if src.exists(): shutil.copytree(src,OUT/name)
 print(f'Native web bundle staged at {OUT}')

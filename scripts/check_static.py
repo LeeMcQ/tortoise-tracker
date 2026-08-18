@@ -42,9 +42,14 @@ css=(root/'styles.css').read_text(encoding='utf-8')
 assert '@media (max-width:1024px)' in css and '@media (min-width:1025px)' in css, 'Dual app/web breakpoints missing'
 print('V5 adaptive app/native-readiness guards: OK')
 
-# V6 Nautilus Bay visual integration guards
-assert './assets/tortoise-leopard.svg' in sw and './assets/tortoise-angulate.svg' in sw and './assets/tortoise-padloper.svg' in sw, 'V6 tortoise illustrations must be cached'
+# V6/V7 Nautilus Bay visual integration + access-profile guards
+assert './icons/tortoise-placeholder.svg' in sw and './icons/tortoise-padloper.svg' in sw, 'Local tortoise fallback illustrations must be cached'
 assert 'Slider_1.jpg' in css, 'Nautilus Bay scenic hero integration missing'
 assert 'Gallery_10.jpg' in css, 'Nautilus Bay reserve-story image integration missing'
 assert '--hestia-accent:#e91e63' in css and 'Roboto Slab' in css, 'Hestia visual-language integration missing'
-print('V6 Nautilus Bay brand-integration guards: OK')
+demo=(root/'src/demo-data.js').read_text(encoding='utf-8')
+assert 'Gallery_3.jpg' in demo and 'Gallery_7.jpg' in demo, 'Requested Nautilus Bay gallery images missing from demo animal profiles'
+assert 'data-demo-role="scientist"' in app and 'data-demo-role="admin"' in app and 'data-public-access' in app, 'Three-profile access model missing'
+assert 'data-demo-role="ranger"' not in app and 'data-demo-role="researcher"' not in app and 'data-demo-role="veterinarian"' not in app, 'Legacy staff profiles still exposed'
+assert not (root/'assets').exists(), 'V7 should not require a top-level assets folder for GitHub Pages upload'
+print('V7 Nautilus Bay brand/access integration guards: OK')

@@ -1,3 +1,19 @@
+# V7.0.0 — Three Profiles + HOA Nature Integration
+
+- Consolidated all protected operational roles into **Scientist** and **Administrator**; Public remains anonymous.
+- Scientist now combines the former Ranger, Researcher and Veterinarian capabilities: field verification, GIS, health cases, clinical events, measurements, device/deployment records and research exports.
+- Added compatibility normalisation for legacy V6 sessions and a SQL migration that converts existing legacy staff profiles to Scientist.
+- Updated baseline Supabase RLS policies and observation provenance vocabulary for the new role model.
+- Replaced Shelly's local Leopard-tortoise illustration with Nautilus Bay `Gallery_3.jpg`.
+- Replaced Atlas's local Angulate-tortoise illustration with Nautilus Bay `Gallery_7.jpg`.
+- Updated the image security allow-list and CSP so approved Nautilus Bay HOA images can load on GitHub Pages.
+- Added explicit Google Roboto / Roboto Slab web-font loading with CSP support and resilient fallbacks.
+- Expanded About with source-grounded Nautilus Bay reserve and nature information: reserve/fynbos/beach scale, Garden Route/Mossel Bay context, whales/dolphins, birdlife, small buck/other mammals, dunes and fynbos.
+- Added dedicated responsive nature cards and reserve-fact presentation.
+- Removed the top-level `assets/` folder to avoid the GitHub browser-upload problem; remaining local tortoise fallback artwork moved to `icons/`.
+- Updated native staging so optional asset directories do not block APK staging.
+- Added V7 regression tests for three-profile access, HOA imagery, nature content and no-assets-folder deployment.
+
 # V5.0.0 — Adaptive App/Web + Native-Ready Architecture
 
 - Added responsive app presentation through 1024 px with persistent five-tab navigation.
