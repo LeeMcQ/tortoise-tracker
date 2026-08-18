@@ -1,6 +1,6 @@
-# Nautilus Bay Digital Conservation Platform V7 — Three Profiles + HOA Nature Integration
+# Nautilus Bay Digital Conservation Platform 
 
-V7 preserves the adaptive app/web, GIS, analytics, offline and native-ready architecture while consolidating access to exactly three profiles — Public, Scientist and Administrator — and deepening the public About experience with reserve and nature information sourced from the Nautilus Bay HOA website. The requested Gallery_3 and Gallery_7 images are used for the Shelly and Atlas demonstration profiles.
+the adaptive app/web, GIS, analytics, offline and native-ready architecture while consolidating access to exactly three profiles — Public, Scientist and Administrator — and deepening the public About experience with reserve and nature information sourced from the Nautilus Bay HOA website. The requested Gallery_3 and Gallery_7 images are used for the Shelly and Atlas demonstration profiles.
 
 See `docs/BRAND_INTEGRATION_REVIEW.md`, `docs/ADAPTIVE_EXPERT_REVIEW.md` and `docs/MOBILE_NATIVE_STRATEGY.md`.
 
