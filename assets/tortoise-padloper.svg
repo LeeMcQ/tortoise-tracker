@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" role="img" aria-labelledby="t d">
+<title id="t">Stylised padloper tortoise</title><desc id="d">A refined illustration of a small sandy tortoise among dune vegetation.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#dae6e8"/><stop offset=".46" stop-color="#f1eadc"/><stop offset="1" stop-color="#d5bd94"/></linearGradient><linearGradient id="sh" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c4a87c"/><stop offset="1" stop-color="#74634e"/></linearGradient><filter id="ds"><feDropShadow dx="0" dy="13" stdDeviation="14" flood-color="#3c4858" flood-opacity=".16"/></filter></defs>
+<rect width="1000" height="680" fill="url(#bg)"/>
+<path d="M0 548c180-54 317-18 465 5 183 28 331-18 535-8v135H0z" fill="#cbb58e"/>
+<g fill="none" stroke="#6f825d" stroke-width="11" stroke-linecap="round" opacity=".78"><path d="M100 606l19-116m-7 71-46-51m53 11 38-68M854 604l18-126m-12 65 55-52m-43 20-33-78M739 627l-8-84m4 43-38-36"/></g>
+<g filter="url(#ds)" transform="translate(145 110) scale(.9)">
+<ellipse cx="420" cy="320" rx="260" ry="168" fill="url(#sh)" stroke="#51483e" stroke-width="15"/>
+<g fill="none" stroke="#584d41" stroke-width="11"><path d="M236 240c96-74 279-73 371 7M211 330c126-63 335-60 423 6M258 413c96-39 250-36 328-1"/><path d="M420 159v332M321 187l191 270M519 187L329 456"/></g>
+<path d="M662 316c73-24 126-6 143 32-22 41-72 50-143 20z" fill="#817563" stroke="#51483e" stroke-width="13"/><circle cx="769" cy="336" r="7" fill="#202324"/>
+<path d="M169 281c-42-28-84-22-108 9 18 37 59 48 108 29z" fill="#776b59" stroke="#51483e" stroke-width="13"/>
+<path d="M250 453l-46 82M565 451l50 79M257 208l-43-66M566 211l47-65" stroke="#6d604e" stroke-width="29" stroke-linecap="round"/>
+</g>
+</svg>
