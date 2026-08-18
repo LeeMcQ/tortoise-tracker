@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" role="img" aria-labelledby="t d">
+<title id="t">Stylised angulate tortoise</title><desc id="d">A refined illustration of an angulate tortoise in coastal vegetation.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#dbe8e3"/><stop offset=".6" stop-color="#eee3ce"/><stop offset="1" stop-color="#c2a983"/></linearGradient><linearGradient id="sh" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ad8548"/><stop offset=".55" stop-color="#70543a"/><stop offset="1" stop-color="#40352d"/></linearGradient><filter id="ds"><feDropShadow dx="0" dy="15" stdDeviation="15" flood-color="#3c4858" flood-opacity=".16"/></filter></defs>
+<rect width="1000" height="680" fill="url(#bg)"/>
+<g fill="none" stroke="#657b55" stroke-width="13" stroke-linecap="round" opacity=".75"><path d="M80 600l33-162m-14 82-57-64m68 20 53-83M900 604l-27-171m11 74 52-72m-62 29-49-80M170 625l35-102m-22 60 45-48"/></g>
+<path d="M0 603c189-34 314 14 493-10 208-28 338 23 507 8v79H0z" fill="#c8b18d"/>
+<g filter="url(#ds)" transform="translate(105 85)">
+<ellipse cx="417" cy="325" rx="275" ry="174" fill="url(#sh)" stroke="#332c28" stroke-width="16"/>
+<g fill="#c38c45" stroke="#392f28" stroke-width="12"><path d="M416 163l98 76-39 100H356l-40-100z"/><path d="M224 261l93-20 39 99-80 79-98-53z"/><path d="M610 258l-96-18-39 99 82 82 101-57z"/><path d="M356 340h119l39 107-98 59-98-60z"/></g>
+<path d="M690 318c76-23 132-4 148 38-24 43-77 54-146 21z" fill="#7b6b57" stroke="#332c28" stroke-width="14"/><circle cx="801" cy="340" r="8" fill="#171a1c"/>
+<path d="M163 282c-47-31-92-23-118 11 20 40 64 52 118 30z" fill="#756452" stroke="#332c28" stroke-width="14"/>
+<path d="M245 462l-48 93M573 458l58 88M250 205l-47-73M574 207l52-72" stroke="#665744" stroke-width="32" stroke-linecap="round"/>
+</g>
+</svg>

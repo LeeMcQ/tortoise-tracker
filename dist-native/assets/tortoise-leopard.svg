@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" role="img" aria-labelledby="t d">
+<title id="t">Stylised leopard tortoise</title><desc id="d">A refined illustration of a leopard tortoise among coastal fynbos and sand.</desc>
+<defs>
+ <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#dfe9ec"/><stop offset=".52" stop-color="#f5f0e7"/><stop offset="1" stop-color="#d9c7a8"/></linearGradient>
+ <linearGradient id="shell" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#d4b56f"/><stop offset="1" stop-color="#8a6a3c"/></linearGradient>
+ <filter id="soft"><feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#3c4858" flood-opacity=".18"/></filter>
+</defs>
+<rect width="1000" height="680" fill="url(#sky)"/>
+<path d="M0 525c145-60 230-46 355-19 148 32 259-34 394-4 116 25 189 44 251 19v159H0z" fill="#a6aa83" opacity=".62"/>
+<path d="M0 590c141-35 289-9 425 4 183 17 363-26 575-1v87H0z" fill="#c8b28c"/>
+<g opacity=".7" stroke="#5f7652" stroke-width="11" stroke-linecap="round"><path d="M90 585l19-133m-7 90-48-60m53 36 48-81M865 590l-5-129m2 76 52-70m-56 43-45-78M205 607l-3-83m4 51 32-53"/></g>
+<g filter="url(#soft)" transform="translate(110 80)">
+ <ellipse cx="424" cy="330" rx="270" ry="175" fill="url(#shell)" stroke="#4e4436" stroke-width="16"/>
+ <g fill="none" stroke="#3f382f" stroke-width="13" opacity=".96">
+  <path d="M231 244c90-85 290-83 385 4M210 337c116-72 343-70 432 9M244 421c116-45 272-43 350-2"/>
+  <path d="M424 157v348M307 184l223 290M541 186L317 474"/>
+  <path d="M348 221l76 61 82-59M286 317l86 70 107-6 86-69M343 451l80-62 91 63"/>
+ </g>
+ <g fill="#dfc47c" stroke="#4e4436" stroke-width="11"><circle cx="424" cy="281" r="45"/><circle cx="318" cy="319" r="40"/><circle cx="528" cy="319" r="40"/><circle cx="423" cy="402" r="42"/></g>
+ <path d="M674 324c84-28 139-8 153 32-21 46-79 57-153 24z" fill="#8e8065" stroke="#4e4436" stroke-width="14"/>
+ <circle cx="789" cy="344" r="8" fill="#1f2526"/>
+ <path d="M175 284c-52-36-98-29-126 4 18 43 68 57 124 34z" fill="#84755e" stroke="#4e4436" stroke-width="14"/>
+ <path d="M260 468l-50 91M571 461l56 88M251 200l-47-77M586 205l48-71" stroke="#6d604e" stroke-width="31" stroke-linecap="round"/>
+</g>
+</svg>
